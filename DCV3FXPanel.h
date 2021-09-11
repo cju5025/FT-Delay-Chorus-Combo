@@ -1,5 +1,6 @@
 #pragma once
 #include "DCV3PanelBase.h"
+#include "DCV3ParameterSlider.h"
 
 enum DCV3FXPanelStyle
 {
@@ -21,5 +22,7 @@ public:
     
 private:
     DCV3FXPanelStyle mStyle;
+    
+    OwnedArray<DCV3ParameterSlider> mFXSliders;
     
 };
