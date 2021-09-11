@@ -1,6 +1,12 @@
 #pragma once
 #include "DCV3AudioHelpers.h"
 
+enum DCV3Type
+{
+    kDCV3Type_Delay = 0,
+    kDCV3Type_Chorus
+};
+
 class DCV3Delay
 {
 public:
@@ -15,6 +21,7 @@ public:
                  float inTime,
                  float inFeedback,
                  float inWetDry,
+                 float inType,
                  float* inModulationBuffer,
                  float* outAudio,
                  int inNumSamplesToRender);
