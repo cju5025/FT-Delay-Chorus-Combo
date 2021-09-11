@@ -11,6 +11,7 @@ enum DCV3FXPanelStyle
 
 class DCV3FXPanel
 :   public DCV3PanelBase
+//    public ComboBox::Listener
 {
 public:
     
@@ -19,9 +20,12 @@ public:
     
     void paint(Graphics& g) override;
     void setFXPanelStyle(DCV3FXPanelStyle inStyle);
+//    void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
     
 private:
     DCV3FXPanelStyle mStyle;
+    
+    String mLabel;
     
     OwnedArray<DCV3ParameterSlider> mFXSliders;
     

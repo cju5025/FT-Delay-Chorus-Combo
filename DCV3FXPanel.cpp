@@ -3,38 +3,22 @@
 #include "DCV3GuiHelpers.h"
 
 DCV3FXPanel::DCV3FXPanel(DelayChorusv3AudioProcessor* inProcessor)
-:   DCV3PanelBase(inProcessor),
-    mStyle(kDCV3FXPanelStyle_Delay)
+:   DCV3PanelBase(inProcessor)
 {
     setSize(FX_PANEL_WIDTH, FX_PANEL_HEIGHT);
+    
 }
 
 DCV3FXPanel::~DCV3FXPanel()
 {
-    
+    mFXSliders.clear();
 }
 
 void DCV3FXPanel::paint(Graphics& g)
 {
     DCV3PanelBase::paint(g);
     
-    switch (mStyle)
-    {
-        case (kDCV3FXPanelStyle_Delay):
-        {
-            g.drawFittedText("DELAY", 0, 0, getWidth(), getHeight() * 0.75, Justification::centred, 1);
-        } break;
-            
-        case (kDCV3FXPanelStyle_Chorus):
-        {
-            g.drawFittedText("CHORUS", 0, 0, getWidth(), getHeight() * 0.75, Justification::centred, 1);
-        } break;
-            
-        case (kDCV3FXPanelStyle_TotalNumStyles):
-        {
-            jassertfalse;
-        } break;
-    };
+    g.drawText(mLabel, 0, 0, getWidth(), 80, Justification::centred, false);
     
     for (int i = 0; i < mFXSliders.size(); i++)
     {
@@ -76,6 +60,8 @@ void DCV3FXPanel::setFXPanelStyle(DCV3FXPanelStyle inStyle)
             addAndMakeVisible(wetdry);
             mFXSliders.add(wetdry);
             
+            mLabel = "DELAY";
+            
         } break;
             
         case (kDCV3FXPanelStyle_Chorus):
@@ -100,14 +86,22 @@ void DCV3FXPanel::setFXPanelStyle(DCV3FXPanelStyle inStyle)
             addAndMakeVisible(wetdry);
             mFXSliders.add(wetdry);
             
+            mLabel = "CHORUS";
             
         } break;
             
         case (kDCV3FXPanelStyle_TotalNumStyles):
         {
+            
             jassertfalse;
+            
         } break;
-    };
+    }
+//    repaint();
 }
 
-
+//void DCV3FXPanel::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
+//{
+//    DCV3FXPanelStyle style = (DCV3FXPanelStyle)comboBoxThatHasChanged->getSelectedItemIndex();
+//    setFXPanelStyle(style);
+//}

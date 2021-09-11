@@ -4,7 +4,8 @@
 #include "DCV3FXPanel.h"
 
 class DCV3CenterPanel
-:   public DCV3PanelBase
+:   public DCV3PanelBase,
+    public ComboBox::Listener
 {
 public:
     
@@ -13,6 +14,10 @@ public:
     
 private:
     
+    void showPanel(int inPanelID);
+    void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
+    
     std::unique_ptr<DCV3CenterPanelMenuBar> mCenterPanelMenuBar;
-    std::unique_ptr<DCV3FXPanel> mFXPanel;
+    std::unique_ptr<DCV3FXPanel> mDelayPanel;
+    std::unique_ptr<DCV3FXPanel> mChorusPanel;
 };
