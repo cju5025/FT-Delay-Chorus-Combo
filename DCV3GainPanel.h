@@ -10,6 +10,7 @@ public:
     DCV3GainPanel(DelayChorusv3AudioProcessor* inProcessor);
     ~DCV3GainPanel();
     
+    void paint(Graphics& g) override;
     void setParameterID(int inParameterID);
 
 private:
