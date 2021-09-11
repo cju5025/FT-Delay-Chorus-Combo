@@ -97,11 +97,4 @@ void DCV3FXPanel::setFXPanelStyle(DCV3FXPanelStyle inStyle)
             
         } break;
     }
-//    repaint();
 }
-
-//void DCV3FXPanel::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
-//{
-//    DCV3FXPanelStyle style = (DCV3FXPanelStyle)comboBoxThatHasChanged->getSelectedItemIndex();
-//    setFXPanelStyle(style);
-//}
