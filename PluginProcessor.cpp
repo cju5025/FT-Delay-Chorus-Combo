@@ -180,6 +180,7 @@ void DelayChorusv3AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
                                  *parameters.getRawParameterValue(DCV3ParameterID[kDCV3Parameter_DelayTime]),
                                  *parameters.getRawParameterValue(DCV3ParameterID[kDCV3Parameter_DelayFeedback]),
                                  *parameters.getRawParameterValue(DCV3ParameterID[kDCV3Parameter_DelayWetDry]),
+                                 *parameters.getRawParameterValue(DCV3ParameterID[kDCV3Parameter_DelayType]),
                                  mLFO[channel]->getBuffer(),
                                  channelData,
                                  buffer.getNumSamples());

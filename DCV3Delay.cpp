@@ -31,6 +31,7 @@ void DCV3Delay::process(float* inAudio,
                         float inTime,
                         float inFeedback,
                         float inWetDry,
+                        float inType,
                         float* inModulationBuffer,
                         float* outAudio,
                         int inNumSamplesToRender)
@@ -41,9 +42,16 @@ void DCV3Delay::process(float* inAudio,
     
     for (int i = 0; i < inNumSamplesToRender; i++)
     {
-        const double delayTimeModulation = (inTime + (0.002f * inModulationBuffer[i]));
         
-        mTimeSmoothed -= smoothingCoefficient_Fine * (mTimeSmoothed - delayTimeModulation);
+        if ((int)inType == kDCV3Type_Delay)
+        {
+            mTimeSmoothed -= smoothingCoefficient_Fine * (mTimeSmoothed - inTime);
+
+        } else {
+            const double delayTimeModulation = (0.003 + (0.002f * inModulationBuffer[i]));
+            mTimeSmoothed -= smoothingCoefficient_Fine * (mTimeSmoothed - delayTimeModulation);
+        }
+        
         
         const double delayTimeInSamples = (mTimeSmoothed * mSampleRate);
         const double sample = getInterpolatedSample(delayTimeInSamples);
