@@ -1,5 +1,6 @@
 #include "DCV3FXPanel.h"
 #include "DCV3Parameters.h"
+#include "DCV3GuiHelpers.h"
 
 DCV3FXPanel::DCV3FXPanel(DelayChorusv3AudioProcessor* inProcessor)
 :   DCV3PanelBase(inProcessor),
@@ -21,12 +22,12 @@ void DCV3FXPanel::paint(Graphics& g)
     {
         case (kDCV3FXPanelStyle_Delay):
         {
-            g.drawFittedText("DELAY", 0, 0, getWidth(), getHeight(), Justification::centred, 1);
+            g.drawFittedText("DELAY", 0, 0, getWidth(), getHeight() * 0.75, Justification::centred, 1);
         } break;
             
         case (kDCV3FXPanelStyle_Chorus):
         {
-            g.drawFittedText("CHORUS", 0, 0, getWidth(), getHeight(), Justification::centred, 1);
+            g.drawFittedText("CHORUS", 0, 0, getWidth(), getHeight() * 0.75, Justification::centred, 1);
         } break;
             
         case (kDCV3FXPanelStyle_TotalNumStyles):
@@ -34,6 +35,11 @@ void DCV3FXPanel::paint(Graphics& g)
             jassertfalse;
         } break;
     };
+    
+    for (int i = 0; i < mFXSliders.size(); i++)
+    {
+        paintComponentLabel(g, mFXSliders[i]);
+    }
 }
 
 void DCV3FXPanel::setFXPanelStyle(DCV3FXPanelStyle inStyle)
