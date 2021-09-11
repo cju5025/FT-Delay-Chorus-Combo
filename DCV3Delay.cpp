@@ -3,8 +3,8 @@
 
 DCV3Delay::DCV3Delay()
 :   mSampleRate(-1),
-    mFeedbackSample(0.0),
-    mTimeSmoothed(0),
+    mFeedbackSample(0.0f),
+    mTimeSmoothed(0.0f),
     mDelayIndex(0)
 {
     
@@ -36,14 +36,14 @@ void DCV3Delay::process(float* inAudio,
                         int inNumSamplesToRender)
 {
     const float wet = inWetDry;
-    const float dry = 1 - wet;
+    const float dry = 1.0f - wet;
     const float feedbackMapped = jmap(inFeedback, 0.0f, 1.0f, 0.0f, 0.98f);
     
     for (int i = 0; i < inNumSamplesToRender; i++)
     {
         const double delayTimeModulation = (inTime + (0.002f * inModulationBuffer[i]));
         
-        mTimeSmoothed -= smoothingCoefficient_Generic * (mTimeSmoothed - delayTimeModulation);
+        mTimeSmoothed -= smoothingCoefficient_Fine * (mTimeSmoothed - delayTimeModulation);
         
         const double delayTimeInSamples = (mTimeSmoothed * mSampleRate);
         const double sample = getInterpolatedSample(delayTimeInSamples);
