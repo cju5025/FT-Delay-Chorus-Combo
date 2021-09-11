@@ -1,5 +1,6 @@
 #include "DCV3GainPanel.h"
 #include "DCV3Parameters.h"
+#include "DCV3GuiHelpers.h"
 
 DCV3GainPanel::DCV3GainPanel(DelayChorusv3AudioProcessor* inProcessor)
 :   DCV3PanelBase(inProcessor)
@@ -12,6 +13,15 @@ DCV3GainPanel::~DCV3GainPanel()
     
 }
 
+void DCV3GainPanel::paint(Graphics& g)
+{
+    DCV3PanelBase::paint(g);
+    
+    if (mGainSlider)
+    {
+        paintComponentLabel(g, mGainSlider.get());
+    }
+}
 
 void DCV3GainPanel::setParameterID(int inParameterID)
 {
