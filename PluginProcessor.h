@@ -4,6 +4,7 @@
 #include "DCV3Gain.h"
 #include "DCV3Delay.h"
 #include "DCV3LFO.h"
+#include "DCV3PresetManager.h"
 
 
 class DelayChorusv3AudioProcessor  : public juce::AudioProcessor
@@ -50,6 +51,8 @@ private:
     std::unique_ptr<DCV3LFO> mLFO[8];
     std::unique_ptr<DCV3Gain> mInputGain[8];
     std::unique_ptr<DCV3Gain> mOutputGain[8];
+    
+    std::unique_ptr<DCV3PresetManager> mPresetManager;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DelayChorusv3AudioProcessor)
 };
