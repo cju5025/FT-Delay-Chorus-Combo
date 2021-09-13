@@ -208,15 +208,25 @@ juce::AudioProcessorEditor* DelayChorusv3AudioProcessor::createEditor()
 //==============================================================================
 void DelayChorusv3AudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    XmlElement preset("State_Info");
+    XmlElement* presetBody = new XmlElement("Preset");
+    
+    mPresetManager->getXmlForPreset(presetBody);
+    
+    preset.addChildElement(presetBody);
+    copyXmlToBinary(preset, destData);
 }
 
 void DelayChorusv3AudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    const auto xmlState = getXmlFromBinary(data, sizeInBytes);
+    
+    jassert (xmlState.get() != nullptr);
+    
+    for (auto* subChild : xmlState->getChildIterator())
+    {
+        mPresetManager->loadPresetForXml(subChild);
+    }
 }
 
 void DelayChorusv3AudioProcessor::initializeDSP()
