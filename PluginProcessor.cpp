@@ -34,6 +34,7 @@ DelayChorusv3AudioProcessor::DelayChorusv3AudioProcessor()
 #endif
 {
     initializeDSP();
+    mPresetManager = std::make_unique<DCV3PresetManager>(this);
 }
 
 DelayChorusv3AudioProcessor::~DelayChorusv3AudioProcessor()
