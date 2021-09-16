@@ -229,6 +229,11 @@ void DelayChorusv3AudioProcessor::setStateInformation (const void* data, int siz
     }
 }
 
+DCV3PresetManager* DelayChorusv3AudioProcessor::getPresetManager()
+{
+    return mPresetManager.get();
+}
+
 void DelayChorusv3AudioProcessor::initializeDSP()
 {
     for (int i = 0; i < getTotalNumInputChannels(); i++)
