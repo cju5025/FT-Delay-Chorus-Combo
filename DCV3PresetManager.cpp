@@ -1,5 +1,11 @@
 #include "DCV3PresetManager.h"
 
+#if JUCE_WINDOWS
+    static const String directorySeparator = "\\";
+#elif JUCE_MAC
+    static const String directorySeparator = "/";
+#endif
+
 DCV3PresetManager::DCV3PresetManager(AudioProcessor* inProcessor)
 :   mProcessor(inProcessor),
     mCurrentPresetIsSaved(false),
@@ -8,7 +14,7 @@ DCV3PresetManager::DCV3PresetManager(AudioProcessor* inProcessor)
     const String pluginName = (String) mProcessor->getName();
     
     mPresetDirectory =
-    (File::getSpecialLocation(File::userDocumentsDirectory)).getFullPathName()+"/Family Time/"+pluginName;
+    (File::getSpecialLocation(File::userDocumentsDirectory)).getFullPathName() + "/Family Time/" + pluginName;
     
     if(!File(mPresetDirectory).exists())
     {
@@ -88,13 +94,21 @@ void DCV3PresetManager::createNewPreset()
     mCurrentPresetName = "Untitled";
 }
 
-void DCV3PresetManager::savePreset(){
+void DCV3PresetManager::savePreset()
+{
+    MemoryBlock destinationData;
+    mProcessor->getStateInformation(destinationData);
+    
+    mCurrentlyLoadedPreset.deleteFile();
+    mCurrentlyLoadedPreset.appendData(destinationData.getData(), destinationData.getSize());
+    
+    mCurrentPresetIsSaved = true;
     
 }
 
 void DCV3PresetManager::saveAsPreset(String inPresetName)
 {
-    
+    File presetFile = File(mPresetDirectory + directorySeparator + inPresetName);
 }
 
 void DCV3PresetManager::loadPreset(int inPresetIndex)
