@@ -73,7 +73,19 @@ void DCV3PresetManager::loadPresetForXml(XmlElement* inElement)
 
 void DCV3PresetManager::createNewPreset()
 {
+    auto& parameters = mProcessor->getParameters();
     
+    for (int i = 0; i < parameters.size(); i++)
+    {
+        AudioProcessorParameterWithID* parameter =
+        (AudioProcessorParameterWithID*)parameters.getUnchecked(i);
+        
+        const float defaultValue = parameter->getDefaultValue();
+        parameter->setValueNotifyingHost(defaultValue);
+    }
+    
+    mCurrentPresetIsSaved = false;
+    mCurrentPresetName = "Untitled";
 }
 
 void DCV3PresetManager::savePreset(){
