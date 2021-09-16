@@ -14,7 +14,8 @@ DCV3PresetManager::DCV3PresetManager(AudioProcessor* inProcessor)
     const String pluginName = (String) mProcessor->getName();
     
     mPresetDirectory =
-    (File::getSpecialLocation(File::userDocumentsDirectory)).getFullPathName() + "/Family Time/" + pluginName;
+    (File::getSpecialLocation(File::userDocumentsDirectory))
+    .getFullPathName() + directorySeparator + "Family Time" + directorySeparator + pluginName;
     
     if(!File(mPresetDirectory).exists())
     {
@@ -109,11 +110,38 @@ void DCV3PresetManager::savePreset()
 void DCV3PresetManager::saveAsPreset(String inPresetName)
 {
     File presetFile = File(mPresetDirectory + directorySeparator + inPresetName);
+    
+    if (presetFile.exists())
+    {
+        presetFile.deleteFile();
+    } else
+    {
+        presetFile.create();
+    }
+    
+    MemoryBlock destinationData;
+    mProcessor->getStateInformation(destinationData);
+    
+    presetFile.appendData(destinationData.getData(), destinationData.getSize());
+    
+    mCurrentPresetIsSaved = true;
+    mCurrentPresetName = inPresetName;
+    
+    storeLocalPresets();
 }
 
 void DCV3PresetManager::loadPreset(int inPresetIndex)
 {
+    mCurrentlyLoadedPreset = mLocalPresets[inPresetIndex];
     
+    MemoryBlock presetBinary;
+    
+    if (mCurrentlyLoadedPreset.loadFileAsData(presetBinary))
+    {
+        mCurrentPresetIsSaved = true;
+        mCurrentPresetName = getPresetName(inPresetIndex);
+        mProcessor->setStateInformation(presetBinary.getData(), (int)presetBinary.getSize());
+    }
 }
 
 int DCV3PresetManager::getNumberOfPresets()
@@ -128,15 +156,24 @@ String DCV3PresetManager::getPresetName(int inPresetIndex)
 
 String DCV3PresetManager::getCurrentPresetName()
 {
-    
+    return mCurrentPresetName;
 }
 
 bool DCV3PresetManager::isCurrentPresetSaved()
 {
-    
+    return mCurrentPresetIsSaved;
 }
 
 void DCV3PresetManager::storeLocalPresets()
 {
+    mLocalPresets.clear();
     
+    for (DirectoryEntry entry : RangedDirectoryIterator (File(mPresetDirectory),
+                               false,
+                               "*" + (String)PRESET_FILE_EXTENSION,
+                               File::findFiles))
+    {
+        const File presetFile = entry.getFile();
+        mLocalPresets.add(presetFile);
+    }
 }
