@@ -2,9 +2,20 @@
 
 DCV3PresetManager::DCV3PresetManager(AudioProcessor* inProcessor)
 :   mProcessor(inProcessor),
+    mCurrentPresetIsSaved(false),
     mCurrentPresetName("Untitled")
 {
+    const String pluginName = (String) mProcessor->getName();
     
+    mPresetDirectory =
+    (File::getSpecialLocation(File::userDocumentsDirectory)).getFullPathName()+"/Family Time/"+pluginName;
+    
+    if(!File(mPresetDirectory).exists())
+    {
+        File(mPresetDirectory).createDirectory();
+    }
+    
+    storeLocalPresets();
 }
 
 DCV3PresetManager::~DCV3PresetManager()
@@ -57,5 +68,49 @@ void DCV3PresetManager::loadPresetForXml(XmlElement* inElement)
             }
         }
     }
+    
+}
+
+void DCV3PresetManager::createNewPreset()
+{
+    
+}
+
+void DCV3PresetManager::savePreset(){
+    
+}
+
+void DCV3PresetManager::saveAsPreset(String inPresetName)
+{
+    
+}
+
+void DCV3PresetManager::loadPreset(int inPresetIndex)
+{
+    
+}
+
+int DCV3PresetManager::getNumberOfPresets()
+{
+    return mLocalPresets.size();
+}
+
+String DCV3PresetManager::getPresetName(int inPresetIndex)
+{
+    return mLocalPresets[inPresetIndex].getFileNameWithoutExtension();
+}
+
+String DCV3PresetManager::getCurrentPresetName()
+{
+    
+}
+
+bool DCV3PresetManager::isCurrentPresetSaved()
+{
+    
+}
+
+void DCV3PresetManager::storeLocalPresets()
+{
     
 }
