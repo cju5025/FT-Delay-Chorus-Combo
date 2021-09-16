@@ -14,7 +14,7 @@ DCV3PresetManager::~DCV3PresetManager()
 
 void DCV3PresetManager::getXmlForPreset(XmlElement* inElement)
 {
-    XmlElement* presetName = new XmlElement("preset_name");
+    XmlElement* presetName = new XmlElement("presetName");
     presetName->setAttribute("name", mCurrentPresetName);
     inElement->addChildElement(presetName);
     
@@ -22,7 +22,8 @@ void DCV3PresetManager::getXmlForPreset(XmlElement* inElement)
     
     for (int i = 0; i < parameters.size(); i++)
     {
-        AudioProcessorParameterWithID* parameter = (AudioProcessorParameterWithID*)parameters.getUnchecked(i);
+        AudioProcessorParameterWithID* parameter =
+        (AudioProcessorParameterWithID*)parameters.getUnchecked(i);
         
         inElement->setAttribute(parameter->paramID, parameter->getValue());
     }
@@ -31,5 +32,30 @@ void DCV3PresetManager::getXmlForPreset(XmlElement* inElement)
 
 void DCV3PresetManager::loadPresetForXml(XmlElement* inElement)
 {
+    mCurrentPresetXml = inElement;
+    XmlElement* presetName = inElement->getChildByName("presetName");
+    
+    if (presetName == nullptr){ return; }
+    
+    mCurrentPresetName = presetName->getStringAttribute("name", "error");
+    
+    auto& parameters = mProcessor->getParameters();
+    
+    for (int i = 0; i < mCurrentPresetXml->getNumAttributes(); i++)
+    {
+        const String paramID = mCurrentPresetXml->getAttributeName(i);
+        const float value = mCurrentPresetXml->getDoubleAttribute(paramID);
+        
+        for (int j = 0; j < parameters.size(); j++)
+        {
+            AudioProcessorParameterWithID* parameter =
+            (AudioProcessorParameterWithID*)parameters.getUnchecked(i);
+            
+            if (paramID == parameter->paramID)
+            {
+                parameter->setValueNotifyingHost(value);
+            }
+        }
+    }
     
 }

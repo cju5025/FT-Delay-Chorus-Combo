@@ -16,5 +16,7 @@ private:
     
     AudioProcessor* mProcessor;
     
+    XmlElement* mCurrentPresetXml;
+    
     String mCurrentPresetName;
 };
