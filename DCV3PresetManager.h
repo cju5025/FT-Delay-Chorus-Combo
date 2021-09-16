@@ -16,4 +16,5 @@ private:
     
     AudioProcessor* mProcessor;
     
+    String mCurrentPresetName;
 };
