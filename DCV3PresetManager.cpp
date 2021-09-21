@@ -109,7 +109,7 @@ void DCV3PresetManager::savePreset()
 
 void DCV3PresetManager::saveAsPreset(String inPresetName)
 {
-    File presetFile = File(mPresetDirectory + directorySeparator + inPresetName);
+    File presetFile = File(mPresetDirectory + directorySeparator + inPresetName + PRESET_FILE_EXTENSION);
     
     if (presetFile.exists())
     {

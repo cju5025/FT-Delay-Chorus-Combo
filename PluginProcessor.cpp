@@ -245,7 +245,6 @@ void DelayChorusv3AudioProcessor::initializeDSP()
     }
 }
 
-
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new DelayChorusv3AudioProcessor();
