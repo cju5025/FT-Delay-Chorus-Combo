@@ -18,6 +18,7 @@ void DCV3FXPanel::paint(Graphics& g)
 {
     DCV3PanelBase::paint(g);
     
+    g.setColour(Colours::ghostwhite);
     g.drawText(mLabel, 0, 0, getWidth(), 80, Justification::centred, false);
     
     for (int i = 0; i < mFXSliders.size(); i++)

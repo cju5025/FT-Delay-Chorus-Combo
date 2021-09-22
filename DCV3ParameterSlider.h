@@ -11,6 +11,8 @@ public:
     
     ~DCV3ParameterSlider();
     
+    void paint(Graphics& g);
+    
 private:
     
     std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> mAttachment;

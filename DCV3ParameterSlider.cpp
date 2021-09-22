@@ -16,3 +16,9 @@ DCV3ParameterSlider::~DCV3ParameterSlider()
 {
     
 }
+
+void DCV3ParameterSlider::paint(Graphics& g)
+{
+    g.setColour(Colours::ghostwhite);
+    g.fillEllipse(10.0f, 0.0f, this->getWidth() - 20.0f, this->getHeight() - 20.0f);
+}
