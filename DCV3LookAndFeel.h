@@ -4,7 +4,7 @@
 #include "DCV3InterfaceDefines.h"
 
 class DCV3LookAndFeel
-:   public LookAndFeel_v4
+:   public LookAndFeel_V4
 {
 public:
     
@@ -20,9 +20,10 @@ public:
         setColour(TextButton::textColourOffId, DCV3Colour_5);
     }
     
-    ~DCV3LookAndFeel();
+    virtual ~DCV3LookAndFeel() {};
     
 //===================    buttons
+    
     Font getTextButtonFont(TextButton&, int buttonHeight) override
     {
         return font_1;
@@ -54,6 +55,7 @@ public:
         g.setColour (fillColour);
         g.fillRoundedRectangle (bounds.reduced(1), cornerSize);
     }
+    
     //===================    combo box
     
     Font getLabelFont(Label& label) override
@@ -63,7 +65,7 @@ public:
     
     void drawPopupMenuBackground(juce::Graphics &g, int width, int height) override
         {
-            g.setColour(KAPColour_4);
+            g.setColour(DCV3Colour_3);
             g.fillRect(0,0,width,height);
         }
         
@@ -103,9 +105,9 @@ public:
         
         Path path;
         
-        path.startNewSubPath(arrow.ZonegetX() + 3.0f, arrowZone.getCentreY() - 2.0f);
-        path.lineTo(arrowZone.toFloat().getCentreX(), arrowZone.toFloat().getCentreY() - 2.0f);
-        path.line(arrowZone.toFloat().getRight() = 3.0f, arrowZone.toFloat().getCentreY() - 2.0f);
+        path.startNewSubPath(arrowZone.getX() + 3.0f, arrowZone.getCentreY() - 2.0f);
+        path.lineTo(static_cast<float> (arrowZone.getCentreX()), arrowZone.toFloat().getCentreY() + 3.0f);
+        path.lineTo(arrowZone.getRight() - 3.0f, arrowZone.getCentreY() - 2.0f);
         
         g.setColour (box.findColour(ComboBox::arrowColourId).withAlpha(box.isEnabled() ? 0.9f : 0.2f));
         g.strokePath(path, PathStrokeType(2.0f));
