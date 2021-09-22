@@ -22,6 +22,7 @@ public:
     
     ~DCV3LookAndFeel();
     
+//===================    buttons
     Font getTextButtonFont(TextButton&, int buttonHeight) override
     {
         return font_1;
@@ -47,13 +48,68 @@ public:
         }
         
         const float cornerSize = 6.0f;
-        const Rectangle<float> bounds =
+        const juce::Rectangle<float> bounds =
         button.getLocalBounds().toFloat().reduced (0.5f, 0.5f);
                 
         g.setColour (fillColour);
         g.fillRoundedRectangle (bounds.reduced(1), cornerSize);
     }
+    //===================    combo box
+    
+    Font getLabelFont(Label& label) override
+    {
+        return font_1;
+    }
+    
+    void drawPopupMenuBackground(juce::Graphics &g, int width, int height) override
+        {
+            g.setColour(KAPColour_4);
+            g.fillRect(0,0,width,height);
+        }
         
+        void drawPopupMenuItem (Graphics& g, const juce::Rectangle<int>& area,
+                                const bool isSeparator, const bool isActive,
+                                const bool isHighlighted, const bool isTicked,
+                                const bool hasSubMenu, const String& text,
+                                const String& shortcutKeyText,
+                                const Drawable* icon, const Colour* const textColourToUse) override
+    {
+        juce::Rectangle<int> r (area);
+        
+        Colour fillColour = isHighlighted ? DCV3Colour_1 : DCV3Colour_3;
+        g.setColour(fillColour);
+        g.fillRect(r.getX(), r.getY(), r.getWidth(), r.getHeight() -1);
+        
+        Colour textColour = isTicked ? DCV3Colour_6 : DCV3Colour_5;
+        g.setColour(textColour);
+        g.setFont(font_1);
+        
+        r.setLeft(10);
+        r.setY(1);
+        g.drawFittedText(text, r, Justification::left, 1);
+        
+    }
+    
+    void drawComboBox (Graphics& g, int width, int height, bool,
+                           int, int, int, int, ComboBox& box) override
+    {
+        const float cornerSize = 3.0f;
+        const juce::Rectangle<int> boxBounds (0, 0, width, height);
+        
+        g.setColour(DCV3Colour_2);
+        g.fillRoundedRectangle(boxBounds.toFloat(), cornerSize);
+        
+        juce::Rectangle<int> arrowZone (width - 30, 0, 20, height);
+        
+        Path path;
+        
+        path.startNewSubPath(arrow.ZonegetX() + 3.0f, arrowZone.getCentreY() - 2.0f);
+        path.lineTo(arrowZone.toFloat().getCentreX(), arrowZone.toFloat().getCentreY() - 2.0f);
+        path.line(arrowZone.toFloat().getRight() = 3.0f, arrowZone.toFloat().getCentreY() - 2.0f);
+        
+        g.setColour (box.findColour(ComboBox::arrowColourId).withAlpha(box.isEnabled() ? 0.9f : 0.2f));
+        g.strokePath(path, PathStrokeType(2.0f));
+    }
     
 private:
     
