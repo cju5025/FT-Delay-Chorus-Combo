@@ -7,19 +7,21 @@ DelayChorusv3AudioProcessorEditor::DelayChorusv3AudioProcessorEditor (DelayChoru
     setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
     mMainPanel = std::make_unique<DCV3MainPanel>(&audioProcessor);
     addAndMakeVisible(mMainPanel.get());
+    
+    mLookAndFeel = std::make_unique<DCV3LookAndFeel>();
+    setLookAndFeel(mLookAndFeel.get());
+    juce::LookAndFeel::setDefaultLookAndFeel(mLookAndFeel.get());
+
 }
 
 DelayChorusv3AudioProcessorEditor::~DelayChorusv3AudioProcessorEditor()
 {
-    
+    setLookAndFeel(nullptr);
 }
 
 void DelayChorusv3AudioProcessorEditor::paint (juce::Graphics& g)
 {
-       g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-       g.setColour (juce::Colours::white);
-       g.setFont (15.0f);
-       g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+
 }
 
 void DelayChorusv3AudioProcessorEditor::resized()
