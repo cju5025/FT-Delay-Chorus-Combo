@@ -21,4 +21,10 @@ void DCV3ParameterSlider::paint(Graphics& g)
 {
     g.setColour(Colours::ghostwhite);
     g.fillEllipse(10.0f, 0.0f, this->getWidth() - 20.0f, this->getHeight() - 20.0f);
+    
+    g.setColour (juce::Colours::orange);
+    juce::Line<float> line (juce::Point<float> (10, 10),
+                            juce::Point<float> (this->getHeight() / 2, 0));
+    g.drawLine (line, 2.0f);
+    
 }
