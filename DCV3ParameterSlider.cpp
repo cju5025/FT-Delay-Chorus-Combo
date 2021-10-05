@@ -19,12 +19,25 @@ DCV3ParameterSlider::~DCV3ParameterSlider()
 
 void DCV3ParameterSlider::paint(Graphics& g)
 {
+    const float width = this->getWidth();
+    const float height = this->getHeight();
+    
+    float diameter = jmin(width, height);
+    float radius = diameter / 2;
+    float centreX = width / 2;
+    float centreY = height / 2;
+    float rx = centreX - radius;
+    float ry = centreY - radius;
+    
     g.setColour(Colours::ghostwhite);
-    g.fillEllipse(10.0f, 0.0f, this->getWidth() - 20.0f, this->getHeight() - 20.0f);
+    g.fillEllipse(10.0f, 0.0f, width - 20.0f, height - 20.0f);
     
-    g.setColour (juce::Colours::orange);
-    juce::Line<float> line (juce::Point<float> (10, 10),
-                            juce::Point<float> (this->getHeight() / 2, 0));
-    g.drawLine (line, 2.0f);
     
-}
+    g.setColour(Colours::black);
+    Path dialTick;
+    dialTick.addRectangle(0, 0, 7.5f, radius);
+    
+    g.fillPath(dialTick);
+    
+    
+};
