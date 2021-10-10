@@ -11,9 +11,7 @@ DCV3TopPanel::DCV3TopPanel(DelayChorusv3AudioProcessor* inProcessor)
     int button_h = 25;
     
     mNewPresetButton = std::make_unique<TextButton>("NEW");
-//    mNewPresetButton->setButtonText("NEW");
     mNewPresetButton->setBounds(button_x, button_y, button_w, button_h);
-//    mNewPresetButton->addListener(this);
     mNewPresetButton->onClick = [this]
         {
             mProcessor->getPresetManager()->createNewPreset();
@@ -23,9 +21,7 @@ DCV3TopPanel::DCV3TopPanel(DelayChorusv3AudioProcessor* inProcessor)
     button_x = button_x + button_w;
     
     mSavePresetButton = std::make_unique<TextButton>("SAVE");
-//    mSavePresetButton->setButtonText("SAVE");
     mSavePresetButton->setBounds(button_x, button_y, button_w, button_h);
-//    mSavePresetButton->addListener(this);
     mSavePresetButton->onClick = [this]
         {
             if(mProcessor->getPresetManager()->isCurrentPresetSaved())
@@ -41,9 +37,7 @@ DCV3TopPanel::DCV3TopPanel(DelayChorusv3AudioProcessor* inProcessor)
     button_x = button_x + button_w;
     
     mSaveAsPresetButton = std::make_unique<TextButton>("SAVE AS");
-//    mSaveAsPresetButton->setButtonText("SAVE AS");
     mSaveAsPresetButton->setBounds(button_x, button_y, button_w, button_h);
-//    mSaveAsPresetButton->addListener(this);
     mSaveAsPresetButton->onClick = [this]
     {
         displaySaveAsPopup();
@@ -56,7 +50,6 @@ DCV3TopPanel::DCV3TopPanel(DelayChorusv3AudioProcessor* inProcessor)
     
     mPresetDisplay = std::make_unique<ComboBox>();
     mPresetDisplay->setBounds(comboBox_x, button_y, comboBox_w, button_h);
-//    mPresetDisplay->addListener(this);
     mPresetDisplay->onChange = [this]
     {
         mProcessor->getPresetManager()->loadPreset(mPresetDisplay->getSelectedItemIndex());
@@ -77,39 +70,6 @@ void DCV3TopPanel::paint(Graphics& g)
     
     g.drawFittedText("Family Time Delay / Chorus", 0, 0, getWidth() - 10, getHeight(), Justification::centredRight, 1);
 }
-
-//void DCV3TopPanel::buttonClicked(Button* b)
-//{
-//    DCV3PresetManager* presetManager = mProcessor->getPresetManager();
-//    
-//    if (b == mNewPresetButton.get())
-//    {
-//        presetManager->createNewPreset();
-//        updatePresetComboBox();
-//        DBG("NEW");
-//        
-//    } else if (b == mSavePresetButton.get())
-//    {
-//        presetManager->savePreset();
-//        DBG("SAVE");
-//        
-//    } else if (b == mSaveAsPresetButton.get())
-//    {
-//        displaySaveAsPopup();
-//        DBG("SAVE AS");
-//    }
-//}
-//
-//void DCV3TopPanel::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
-//{
-//    if (comboBoxThatHasChanged == mPresetDisplay.get())
-//    {
-//        DCV3PresetManager* presetManager = mProcessor->getPresetManager();
-//        
-//        const int index = mPresetDisplay->getSelectedItemIndex();
-//        presetManager->loadPreset(index);
-//    }
-//}
 
 void DCV3TopPanel::displaySaveAsPopup()
 {
