@@ -4,8 +4,6 @@
 
 class DCV3TopPanel
 :   public DCV3PanelBase
-//    public Button::Listener,
-//    public ComboBox::Listener
 {
 public:
     
@@ -13,8 +11,6 @@ public:
     ~DCV3TopPanel();
     
     void paint(Graphics& g) override;
-//    void buttonClicked(Button*) override;
-//    void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
     
 private:
     
