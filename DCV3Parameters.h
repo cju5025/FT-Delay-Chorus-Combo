@@ -15,14 +15,14 @@ enum DCV3Parameter
 
 static String DCV3ParameterID [ kDCV3Parameter_TotalNumParameters ] =
 {
-    "InputGain",
+    "Input Gain",
     "Time",
     "Feedback",
-    "WetDry",
+    "Wet / Dry",
     "Type",
-    "OutputGain",
-    "ModulationRate",
-    "ModulationDepth"
+    "Output Gain",
+    "Modulation Rate",
+    "Modulation Depth"
 };
 
 static String DCV3ParameterLabel [ kDCV3Parameter_TotalNumParameters ] =
