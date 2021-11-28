@@ -32,7 +32,7 @@ public:
         g.setColour(Colour(1, 124, 168));
         
         Path dialTick;
-        dialTick.addRectangle(-2.0f, -radius, 5.0f, radius * 0.75f);
+        dialTick.addRectangle(-2.5f, -radius, 5.0f, radius * 0.75f);
         
         g.fillPath(dialTick, AffineTransform::rotation(angle).translated(centreX, centreY));
     }
