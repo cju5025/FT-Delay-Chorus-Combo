@@ -17,7 +17,7 @@ DCV3FXPanel::~DCV3FXPanel()
 void DCV3FXPanel::paint(Graphics& g)
 {
     DCV3PanelBase::paint(g);
-    
+    g.setFont(font_1);
     g.setColour(Colour(1, 124, 168));
     g.drawText(mLabel, 0, 0, getWidth(), 80, Justification::centred, false);
     
@@ -35,7 +35,7 @@ void DCV3FXPanel::setFXPanelStyle(DCV3FXPanelStyle inStyle)
     mFXSliders.clear();
     
     const int sliderSize = 75;
-    int x = 130;
+    int x = 85;
     int y = (getHeight() * 0.5) - (sliderSize * 0.5);
     
     switch (mStyle)
@@ -62,7 +62,7 @@ void DCV3FXPanel::setFXPanelStyle(DCV3FXPanelStyle inStyle)
             addAndMakeVisible(wetdry);
             mFXSliders.add(wetdry);
             
-            mLabel = "DELAY";
+//            mLabel = "DELAY";
             
         } break;
             
@@ -88,7 +88,7 @@ void DCV3FXPanel::setFXPanelStyle(DCV3FXPanelStyle inStyle)
             addAndMakeVisible(wetdry);
             mFXSliders.add(wetdry);
             
-            mLabel = "CHORUS";
+//            mLabel = "CHORUS";
             
         } break;
             
